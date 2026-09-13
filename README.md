@@ -6,7 +6,7 @@
 
 This is the independent `thepeternemec/newsAPI.ai-agent` repository, initialized from the verified Pleiades redesign at commit `ef53729195929edc8ebd3a26560599bbb008fcb7`, with its history and MIT license preserved. The original repository is unchanged.
 
-The app retains the Pleiades branding and package names from that build. Existing Supabase endpoints and Vercel preview links refer to the original pilot; creating this repository does not provision separate hosting, copy credentials, or activate production access. Configure its own deployment before treating this as a separately hosted service.
+The website uses the NewsAPI.ai Agent identity and violet palette. Internal package and tool names retain the Pleiades identifiers for compatibility. Existing Supabase endpoints and Vercel preview links refer to the original pilot; creating this repository does not provision separate hosting, copy credentials, or activate production access. Configure its own deployment before treating this as a separately hosted service.
 
 ## Customer news release
 

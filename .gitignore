@@ -4,6 +4,7 @@ node_modules/
 # builds
 dist/
 .next/
+.next-dev/
 out/
 *.tsbuildinfo
 

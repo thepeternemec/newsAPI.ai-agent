@@ -1,7 +1,7 @@
-# Pleiades
+# NewsAPI.ai Agent
 > Source-linked news for agents. Public read-only early access.
-- Setup: https://www.pleiades.news/docs
-- Connections: https://www.pleiades.news/connect
-- Agent instructions: https://www.pleiades.news/skill.md
+- Setup: /docs
+- Connections: /connect
+- Agent instructions: /skill.md
 - News API: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api/v2/topics
 - MCP: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api/mcp

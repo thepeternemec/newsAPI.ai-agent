@@ -15,7 +15,7 @@ export default function Docs() { return <>
 <article className="docs-content">
 <div className="eyebrow">THE PLEIADES GUIDE</div>
 <h1 id="start">From connected to informed.</h1>
-<p>Connect your agent, choose a supported topic, and request the latest available reporting. Pleiades returns concise excerpts with publisher links. Read full articles on the publisher’s website.</p>
+<p>Connect your agent, choose a supported topic, and request the latest available reporting. NewsAPI.ai Agent returns concise excerpts with publisher links. Read full articles on the publisher’s website.</p>
 <p>
 <Link href="/connect">Choose your connection →</Link>
 </p>
@@ -58,11 +58,11 @@ export default function Docs() { return <>
 <li>Process and cite the returned articles, then save the new cursor.</li>
 <li>While <code>has_more</code> is true, request the next page before waiting.</li>
 </ol>
-<p>Changes are ordered by when articles enter Pleiades. An article discovered late can still arrive after your last check. Reusing a cursor safely replays that page; deduplicate by article ID if a processing attempt is retried.</p>
+<p>Changes are ordered by when articles enter NewsAPI.ai Agent. An article discovered late can still arrive after your last check. Reusing a cursor safely replays that page; deduplicate by article ID if a processing attempt is retried.</p>
 <p>Latest news shows the newest ingested articles. Use <code>history_cursor</code> as the <code>before</code> parameter to browse earlier pages. History and changes cursors are separate and cannot be interchanged. Cursors are bound to their topic and expire after 30 days; an expired cursor requires a new baseline.</p>
 <h2 id="freshness">An empty result needs context.</h2>
 <p>Every page includes the time of the last successful source check and a freshness status. “Fresh” means the check is within the topic’s freshness target. “Stale” means coverage may be delayed. “Unavailable” means no successful check is recorded. Tell the user when coverage is stale rather than concluding nothing happened.</p>
-<p>Published time comes from the source. First indexed time records when Pleiades first stored an article. Neither is a guarantee that an event happened at that exact time.</p>
+<p>Published time comes from the source. First indexed time records when NewsAPI.ai Agent first stored an article. Neither is a guarantee that an event happened at that exact time.</p>
 <h2 id="integrations">Run a complete connection check.</h2>
 <p>The repository includes examples and checks for three interfaces: a hosted MCP connection, the TypeScript client, and an OpenRouter-compatible tool executor. All three passed against the protected hosted service with real articles. Installation in individual agent products and paid model inference have not been verified.</p>
 <p>

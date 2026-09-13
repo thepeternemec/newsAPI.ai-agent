@@ -65,7 +65,7 @@ export default function Dashboard() {
 <button className={view === "following" ? "active" : ""} onClick={() => setView("following")}>
 <Star size={17}/> Following <span className="sidebar-count">{following.length}</span>
 </button>
-<div className="sidebar-label">BUILD WITH PLEIADES</div>
+<div className="sidebar-label">BUILD WITH NEWSAPI.AI</div>
 <Link href="/connect">
 <Link2 size={17}/> Connect an agent</Link>
 <Link href="/docs">

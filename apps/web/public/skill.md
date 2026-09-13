@@ -2,7 +2,7 @@
 name: pleiades-news
 description: Find current news coverage, cite publishers, and retrieve changes since a prior check.
 ---
-Use the Pleiades MCP connection or its public HTTPS API. This instruction file alone does not connect an account or install an MCP server.
+Use the NewsAPI.ai Agent MCP connection or its public HTTPS API. This instruction file alone does not connect an account or install an MCP server.
 
 Base: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api
 MCP: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api/mcp
