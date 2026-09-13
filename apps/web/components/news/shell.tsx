@@ -18,7 +18,7 @@ export function Header({ active }: {
 export function Footer() { return <footer className="footer">
 <Brand />
 <span>Stay connected to what happens next.</span>
-<Link href="https://github.com/thepeternemec/pleiades">GitHub <ArrowUpRight size={14}/>
+<Link href="https://github.com/thepeternemec/newsAPI.ai-agent">GitHub <ArrowUpRight size={14}/>
 </Link>
 </footer>; }
 export function StatusPill({ children }: {

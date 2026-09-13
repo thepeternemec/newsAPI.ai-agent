@@ -66,7 +66,7 @@ export default function Docs() { return <>
 <h2 id="integrations">Run a complete connection check.</h2>
 <p>The repository includes examples and checks for three interfaces: a hosted MCP connection, the TypeScript client, and an OpenRouter-compatible tool executor. All three passed against the protected hosted service with real articles. Installation in individual agent products and paid model inference have not been verified.</p>
 <p>
-<a href="https://github.com/thepeternemec/pleiades/tree/codex/customer-news-redesign/examples">Open the integration examples →</a>
+<a href="https://github.com/thepeternemec/newsAPI.ai-agent/tree/main/examples">Open the integration examples →</a>
 </p>
 <p>For an MCP client, add the remote URL from the connection page, enable its tools, and ask for a topic. Confirm a real tool invocation appears in the client. For an OpenRouter app, pass the tool schemas to the model, execute its requested calls in your application, and return the tool results.</p>
 <h2 id="limits">Early access, with clear boundaries.</h2>
