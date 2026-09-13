@@ -1,3 +1,5 @@
+> **Historical Pleiades prototype document.** This is not the current community website or official NewsAPI.ai documentation. See [the archive note](README.md).
+
 # Pleiades API Roadmap Review
 
 **From the v0.1 "beats" foundation to the Real-Time News Terminal vision**

@@ -1,3 +1,5 @@
+> **Historical Pleiades prototype document.** This is not the current community website or official NewsAPI.ai documentation. See [the archive note](README.md).
+
 # Pleiades v2 API Contract — Proposal
 
 Proposed endpoint and schema extensions for the phases in [ROADMAP.md](ROADMAP.md). This is a design proposal to review against the v0.1 implementation; nothing here is deployed. All additions are backward-compatible: v0.1 clients keep working unchanged.

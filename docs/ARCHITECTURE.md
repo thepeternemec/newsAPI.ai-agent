@@ -1,3 +1,5 @@
+> **Historical Pleiades prototype document.** This is not the current community website or official NewsAPI.ai documentation. See [the archive note](README.md).
+
 # Pleiades — Architecture
 
 System design for the Real-Time News Terminal. Phase tags refer to [ROADMAP.md](ROADMAP.md).

@@ -1,80 +1,269 @@
-"use client";
-import { useState } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Check, Code2, Copy, Plug, Terminal } from "lucide-react";
-import { Footer, Header } from "@/components/news/shell";
-import { API_BASE } from "@/components/news/client";
-const options = [{ id: "mcp", title: "MCP connection", description: "Connect a compatible assistant directly to NewsAPI.ai Agent news tools.", icon: Plug, label: "For assistants and coding agents" }, { id: "sdk", title: "TypeScript client", description: "Bring news into your own app with a small, typed client.", icon: Code2, label: "For apps and custom agents" }, { id: "tools", title: "OpenRouter tools", description: "Let a model choose when to check news in your tool-calling loop.", icon: Terminal, label: "For OpenRouter-powered apps" }];
+import { ArrowUpRight, Plug, Workflow, Braces } from "lucide-react";
+import { Header, Footer } from "../../components/news/shell";
+import { CodeBlock } from "../../components/news/code-block";
+import {
+  MCP_CONFIG,
+  MCP_REPO,
+  N8N_CREDENTIAL,
+  REGISTER,
+} from "../../lib/community";
+export const metadata: Metadata = {
+  title: "Connect your agent",
+  description:
+    "Community setup notes for the official NewsAPI.ai MCP server, n8n integration, and SDKs.",
+};
 export default function Connect() {
-    const [selected, setSelected] = useState("mcp"), [copied, setCopied] = useState(false), [checking, setChecking] = useState(false), [result, setResult] = useState("");
-    const snippets: Record<string, string> = { mcp: JSON.stringify({ mcpServers: { pleiades: { url: `${API_BASE}/mcp` } } }, null, 2), sdk: `import { PleiadesClient } from "@pleiades/sdk";\n\nconst news = new PleiadesClient({\n  baseUrl: "${API_BASE}"\n});\nconst { topics } = await news.topics("NVIDIA");\nconst first = await news.news(topics[0].beat_id);\nconst next = await news.changes(topics[0].beat_id, first.cursor);`, tools: `// Get the tool schemas for your model request.\nconst { tools } = await fetch(\n  "${API_BASE}/v2/tools"\n).then(r => r.json());\n\n// Supply tools to your OpenRouter request.\n// Execute returned calls with the Pleiades adapter,\n// then send each result back to the model.\n// See the complete example in the setup guide.` };
-    async function copy() { try {
-        await navigator.clipboard.writeText(snippets[selected]);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    }
-    catch {
-        setResult("Copy is unavailable in this browser. Select and copy the configuration below.");
-    } }
-    async function verify() { setChecking(true); setResult(""); try {
-        const response = await fetch(`${API_BASE}/mcp`, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json, text/event-stream" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "pleiades-setup-check", version: "1.0.0" } } }) });
-        const data = await response.json();
-        if (!response.ok || !data.result?.serverInfo)
-            throw Error();
-        setResult(`Connection reached ${data.result.serverInfo.name}. Finish setup in your agent and request a topic to verify its own connection.`);
-    }
-    catch {
-        setResult("The connection could not be reached. Please try again shortly or check the endpoint in the setup guide.");
-    }
-    finally {
-        setChecking(false);
-    } }
-    return <>
-<Header active="connect"/>
-<main id="main" className="wrap">
-<div className="page-heading">
-<div className="eyebrow">ONE CONNECTION. MORE CONTEXT.</div>
-<h1>Bring news to your agent.</h1>
-<p>Choose the way you work. Each connection uses the same topics, source links, and saved update positions. Public connections open after the release check.</p>
-</div>
-<div className="integration-grid">{options.map(option => <button className="integration-card" aria-pressed={selected === option.id} key={option.id} onClick={() => { setSelected(option.id); setCopied(false); setResult(""); }}>
-<span className="integration-icon">
-<option.icon size={22}/>
-</span>
-<h2>{option.title}</h2>
-<p>{option.description}</p>
-<span className="integration-label">{option.label} ↗</span>
-</button>)}</div>
-<section className="setup-box">
-<h2>{selected === "mcp" ? "Connect once. Start asking." : selected === "sdk" ? "Add news to your application." : "Give your model a news tool."}</h2>
-<p>{selected === "mcp" ? "Add this endpoint in your agent’s remote MCP settings. Configuration names differ by client; this is the common JSON shape." : selected === "sdk" ? "The client is included in the GitHub repository as a workspace package. It is not published to npm yet. Build the repository before running this example." : "Tool schemas describe what a model may call. Your application executes the requests and returns the results to the model."}</p>
-<div className="code-header">
-<span>{selected === "mcp" ? "Remote MCP configuration" : "Integration example"}</span>
-<button onClick={() => void copy()}>{copied ? <Check size={14}/> : <Copy size={14}/>} {copied ? "Copied" : "Copy"}</button>
-</div>
-<pre>
-<code>{snippets[selected]}</code>
-</pre>
-<div className="steps">
-<div>
-<strong>01 · Connect</strong>
-<p>Use the configuration or repository example in your own environment.</p>
-</div>
-<div>
-<strong>02 · Ask for a topic</strong>
-<p>“Find news topics about Nvidia and read the latest available coverage.”</p>
-</div>
-<div>
-<strong>03 · Keep your place</strong>
-<p>Save the returned cursor. Ask for changes from that position on your next check.</p>
-</div>
-</div>
-<div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 20, flexWrap: "wrap" }}>
-<button className="button button-small" onClick={() => void verify()} disabled={checking}>{checking ? "Checking…" : "Check MCP endpoint"}</button>
-<Link className="quiet-link" href="/docs">Read the full setup guide <ArrowUpRight size={14} style={{ display: "inline" }}/>
-</Link>
-</div>{result && <div className="result-box" role="status">{result}</div>}</section>
-</main>
-<Footer />
-</>;
+  return (
+    <>
+      <Header active="connect" />
+      <main id="main" className="wrap guide-main">
+        <div className="page-intro">
+          <div className="eyebrow">PICK YOUR CONNECTION</div>
+          <h1>
+            The news tools exist.
+            <br />
+            <span>Let’s put them to work.</span>
+          </h1>
+          <p>
+            Bring your NewsAPI.ai key. Choose your assistant, automation, or
+            codebase. Follow the official tool’s setup with a little help from
+            this community guide.
+          </p>
+        </div>
+        <nav className="connection-jumps" aria-label="Setup paths">
+          <a href="#mcp">
+            <Plug size={18} /> MCP assistants
+          </a>
+          <a href="#n8n">
+            <Workflow size={18} /> n8n workflows
+          </a>
+          <a href="#code">
+            <Braces size={18} /> SDKs & REST
+          </a>
+        </nav>
+        <section id="mcp" className="setup-section">
+          <div className="setup-intro">
+            <div className="eyebrow">01 / MCP</div>
+            <h2>
+              A news toolkit
+              <br />
+              for your assistant.
+            </h2>
+            <p>
+              The official{" "}
+              <a href="https://www.npmjs.com/package/newsapi-mcp">
+                newsapi-mcp
+              </a>{" "}
+              package runs locally and connects to NewsAPI.ai. Use a compatible
+              MCP client and Node.js 18 or newer.
+            </p>
+            <a className="text-button" href={MCP_REPO}>
+              Official setup & supported clients <ArrowUpRight size={15} />
+            </a>
+          </div>
+          <div className="setup-body">
+            <ol className="setup-steps">
+              <li>
+                <strong>Get your API key.</strong>{" "}
+                <a href={REGISTER}>Register at NewsAPI.ai</a> and find your key
+                in your account.
+              </li>
+              <li>
+                <strong>Configure your client.</strong> The example below uses
+                the <code>mcpServers</code> format for Claude Desktop and
+                Cursor. Merge it into your client’s MCP configuration; keep any
+                existing servers.
+              </li>
+              <li>
+                <strong>Replace the placeholder locally.</strong> Set{" "}
+                <code>NEWSAPI_KEY</code> to your key in your own configuration,
+                then restart or reconnect your client.
+              </li>
+              <li>
+                <strong>Try a small request.</strong> Ask for recent articles on
+                a specific topic, with dates and original links.
+              </li>
+            </ol>
+            <CodeBlock
+              label="Claude Desktop / Cursor · MCP configuration"
+              code={MCP_CONFIG}
+            />
+            <div className="guide-callout">
+              This community website never needs your API key. Configure
+              credentials only in your own client, workflow, or server.
+            </div>
+            <h3 className="minor-title">Using Claude Code?</h3>
+            <CodeBlock
+              label="Claude Code · add MCP server"
+              code="claude mcp add newsapi -e NEWSAPI_KEY=YOUR_API_KEY -- npx -y newsapi-mcp"
+            />
+            <p className="setup-small">
+              Use the <a href={MCP_REPO}>official README</a> for VS Code, Gemini
+              CLI, Windsurf, and other supported clients. Their configuration
+              locations and formats can differ.
+            </p>
+            <details className="tool-details">
+              <summary>What tools does the official server expose?</summary>
+              <ul>
+                <li>
+                  <code>suggest</code> — resolve entities for filters
+                </li>
+                <li>
+                  <code>search_articles</code> — retrieve matching reporting
+                </li>
+                <li>
+                  <code>search_events</code> — find clusters of related coverage
+                </li>
+                <li>
+                  <code>get_topic_page_articles</code> — read saved-topic
+                  articles
+                </li>
+                <li>
+                  <code>get_topic_page_events</code> — read saved-topic events
+                </li>
+                <li>
+                  <code>get_api_usage</code> — inspect account usage
+                </li>
+              </ul>
+              <a href={`${MCP_REPO}/tree/main/skill`}>
+                Explore the official news research skill ↗
+              </a>
+            </details>
+          </div>
+        </section>
+        <section id="n8n" className="setup-section">
+          <div className="setup-intro">
+            <div className="eyebrow">02 / N8N</div>
+            <h2>
+              Your workflow.
+              <br />A news connection.
+            </h2>
+            <p>
+              NewsAPI.ai’s n8n guides use native HTTP Request nodes with Event
+              Registry credentials. Start with an n8n Cloud account or your own
+              n8n instance.
+            </p>
+            <a
+              className="text-button"
+              href="https://newsapi.ai/documentation?tab=n8n_overview"
+            >
+              Open the official n8n guide <ArrowUpRight size={15} />
+            </a>
+          </div>
+          <div className="setup-body">
+            <ol className="setup-steps">
+              <li>
+                <strong>Create a credential in n8n.</strong> Open Credentials,
+                add a <em>Custom Auth</em> credential, and name it “Event
+                Registry API”.
+              </li>
+              <li>
+                <strong>Add your API key.</strong> Use the JSON below in the
+                credential, replacing the placeholder inside n8n.
+              </li>
+              <li>
+                <strong>Connect an HTTP Request node.</strong> Set
+                Authentication to <em>Generic Credential Type</em>, choose{" "}
+                <em>Custom Auth</em>, and select your credential.
+              </li>
+              <li>
+                <strong>Follow an official workflow.</strong> Start with a
+                manual run. Check your output and account usage before
+                scheduling it.
+              </li>
+            </ol>
+            <CodeBlock
+              label="n8n · Custom Auth credential"
+              code={N8N_CREDENTIAL}
+            />
+            <div className="workflow-links">
+              <a href="https://newsapi.ai/documentation?tab=n8n_content_research">
+                <span>01</span>
+                <div>
+                  <strong>Content research assistant</strong>
+                  <p>Turn a topic into an email research digest.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="https://newsapi.ai/documentation?tab=n8n_news_alert_system">
+                <span>02</span>
+                <div>
+                  <strong>News alert system</strong>
+                  <p>Follow the official alert workflow example.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="https://newsapi.ai/documentation?tab=n8n_sentiment_dashboard">
+                <span>03</span>
+                <div>
+                  <strong>Sentiment dashboard</strong>
+                  <p>Explore news sentiment in an n8n workflow.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+            <p className="setup-small">
+              NewsAPI.ai’s allowance covers its API usage. Your n8n hosting and
+              any model services have their own plans.
+            </p>
+          </div>
+        </section>
+        <section id="code" className="setup-section">
+          <div className="setup-intro">
+            <div className="eyebrow">03 / SDKS & REST</div>
+            <h2>
+              Make room for news
+              <br />
+              in your codebase.
+            </h2>
+            <p>
+              Use the provider’s libraries or call the REST API from your
+              server. The official sandbox helps you explore filters before
+              writing an integration.
+            </p>
+          </div>
+          <div className="setup-body">
+            <div className="workflow-links">
+              <a href="https://github.com/EventRegistry/event-registry-python">
+                <span>Py</span>
+                <div>
+                  <strong>Python SDK</strong>
+                  <p>Official package, examples, and source code.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="https://github.com/EventRegistry/event-registry-node-js">
+                <span>JS</span>
+                <div>
+                  <strong>Node.js SDK</strong>
+                  <p>Official JavaScript library for articles and events.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+              <a href="https://newsapi.ai/documentation/sandbox?tab=introduction">
+                <span>{"{}"}</span>
+                <div>
+                  <strong>REST API sandbox</strong>
+                  <p>Build a request and inspect its parameters.</p>
+                </div>
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+            <div className="guide-callout">
+              For an OpenRouter-powered app, your application can retrieve news
+              through these tools and pass the results to its chosen model. This
+              site does not provide an OpenRouter app listing or a hosted MCP
+              endpoint.
+            </div>
+            <Link className="text-button" href="/resources">
+              See the full resource library <ArrowUpRight size={15} />
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }

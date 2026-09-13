@@ -1,72 +1,373 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Code2, Fingerprint, Globe2, Layers3, Link2, Plug, Radar, Rss, Sparkles, Workflow } from "lucide-react";
-import { Footer, Header } from "@/components/news/shell";
-
-const topics = [
-  { name: "NVIDIA", category: "Technology", icon: Layers3, color: "violet" },
-  { name: "Federal Reserve", category: "Economy", icon: Globe2, color: "mint" },
-  { name: "EU AI Act", category: "Policy", icon: Fingerprint, color: "peach" },
-];
-
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Braces,
+  GitBranch,
+  Globe2,
+  Newspaper,
+  Plug,
+  Workflow,
+  Sparkles,
+  BookOpen,
+} from "lucide-react";
+import { Header, Footer } from "../components/news/shell";
+import { CodeBlock } from "../components/news/code-block";
+import { FREE_PLAN_COPY, REGISTER, REPO } from "../lib/community";
 export default function Home() {
-  return <>
-    <Header />
-    <main id="main">
-      <section className="landing-hero">
-        <div className="hero-grid wrap">
-          <div className="hero-content">
-            <div className="eyebrow hero-badge"><span className="signal-dot" /> NEWS CONTEXT FOR THE AGENT ERA</div>
-            <h1>The world moves.<br />Give your agent<br /><span>the full picture.</span></h1>
-            <p className="hero-copy">Turn the news into useful context. Discover the stories that matter, keep the original sources, and pick up where you left off.</p>
-            <div className="hero-actions">
-              <Link className="button" href="/connect">Connect your agent <ArrowUpRight size={18} /></Link>
-              <Link className="text-button" href="/dashboard">Explore the news <ArrowRight size={18} /></Link>
-            </div>
-            <div className="hero-note"><span><Check size={14} /> Source-linked articles</span><span><Check size={14} /> Built for MCP</span></div>
-          </div>
-          <div className="hero-stage">
-            <div className="stage-caption"><span><Workflow size={14} /> FROM QUESTION TO CONTEXT</span><span>WORKFLOW EXAMPLE</span></div>
-            <div className="agent-preview">
-              <div className="preview-bar"><span className="preview-dots"><i /><i /><i /></span><span>NewsAPI.ai Agent</span><span className="preview-mode">Research workspace</span></div>
-              <div className="preview-body">
-                <div className="question"><span className="question-icon"><Sparkles size={18} /></span><p>What’s happening in the world of AI?</p><ArrowUpRight size={16} /></div>
-                <div className="tool-path"><span className="path-icon"><Radar size={17} /></span><div><strong>Find the right topics</strong><span>Companies, technology, and policy</span></div><span className="path-number">01</span></div>
-                <div className="preview-topics">{topics.filter(t => t.name !== "Federal Reserve").map(t => <Link key={t.name} href={`/dashboard?q=${encodeURIComponent(t.name)}`}><t.icon size={14} />{t.name}<ArrowUpRight size={12} /></Link>)}</div>
-                <div className="tool-path"><span className="path-icon mint"><Rss size={17} /></span><div><strong>Bring back the reporting</strong><span>Article excerpts with original sources</span></div><span className="path-number">02</span></div>
-                <div className="source-preview"><div><Link2 size={14} /><span>Publisher link</span><span>Publication time</span></div><div className="text-bars" aria-hidden="true"><i /><i /></div><span className="source-foot"><Check size={12} /> Context your agent can cite</span></div>
-                <div className="tool-path last"><span className="path-icon peach"><Fingerprint size={17} /></span><div><strong>Remember where you left off</strong><span>A saved cursor for the next news check</span></div><span className="path-number">03</span></div>
+  return (
+    <>
+      <Header />
+      <main id="main">
+        <section className="community-hero">
+          <div className="wrap hero-grid">
+            <div className="hero-content">
+              <div className="eyebrow hero-badge">
+                <span className="signal-dot" /> A COMMUNITY PROJECT FOR
+                NEWSAPI.AI
               </div>
-              <div className="preview-footer"><span className="signal-dot" /> One connection. Three news tools.<Link href="/docs">See how it works <ArrowRight size={14} /></Link></div>
+              <h1>
+                Your agent.
+                <br />
+                Meet <span>the world.</span>
+              </h1>
+              <p className="hero-copy">
+                Give your AI projects a connection to the news. Discover
+                NewsAPI.ai’s MCP server, n8n workflows, and developer tools—all
+                in one open-source launchpad.
+              </p>
+              <div className="hero-actions">
+                <Link className="button" href="/connect">
+                  Find your connection <ArrowRight size={17} />
+                </Link>
+                <a className="text-button" href={REPO}>
+                  Explore GitHub <ArrowUpRight size={16} />
+                </a>
+              </div>
+              <p className="community-caption">
+                Built by the community. Powered by your NewsAPI.ai account.
+              </p>
             </div>
-            <div className="floating-note"><span><Link2 size={18} /></span><div><strong>Every story has a source.</strong><p>Keep it in the conversation.</p></div></div>
+            <div className="launchpad">
+              <div className="launchpad-top">
+                <span>THE BUILDER’S STARTER KIT</span>
+                <span>001 / NEWS</span>
+              </div>
+              <div className="launchpad-title">
+                <Globe2 size={33} strokeWidth={1.3} />
+                <h2>
+                  A little more
+                  <br />
+                  world-aware.
+                </h2>
+              </div>
+              <Link className="kit-row" href="/connect#mcp">
+                <span className="kit-number">01</span>
+                <Plug size={21} />
+                <div>
+                  <strong>News for your assistant</strong>
+                  <span>Official MCP server</span>
+                </div>
+                <ArrowUpRight size={18} />
+              </Link>
+              <Link className="kit-row" href="/connect#n8n">
+                <span className="kit-number">02</span>
+                <Workflow size={21} />
+                <div>
+                  <strong>News for your workflows</strong>
+                  <span>n8n + Event Registry</span>
+                </div>
+                <ArrowUpRight size={18} />
+              </Link>
+              <Link className="kit-row" href="/connect#code">
+                <span className="kit-number">03</span>
+                <Braces size={21} />
+                <div>
+                  <strong>News for your next app</strong>
+                  <span>Python · Node.js · REST</span>
+                </div>
+                <ArrowUpRight size={18} />
+              </Link>
+              <div className="kit-bottom">
+                <span>Open tools. Practical guides.</span>
+                <GitBranch size={17} />
+              </div>
+            </div>
+          </div>
+        </section>
+        <div className="community-ribbon">
+          <div className="wrap">
+            <span>
+              <span className="ribbon-dot" /> OPEN SOURCE, OPEN INVITATION
+            </span>
+            <p>Your shortcut from “what if” to a news-powered project.</p>
+            <Link href="/resources">
+              Browse the library <ArrowRight size={15} />
+            </Link>
           </div>
         </div>
-        <div className="connection-strip wrap"><p>NEWS THAT FITS<br /><strong>THE WAY YOU BUILD</strong></p><span><Plug /> MCP clients</span><span><Code2 /> TypeScript</span><span><Workflow /> OpenRouter apps</span><Link href="/connect">Find your connection <ArrowUpRight size={17} /></Link></div>
-      </section>
-
-      <section className="section wrap" id="how-it-works">
-        <div className="section-heading"><div><span className="eyebrow">LESS SEARCHING. MORE UNDERSTANDING.</span><h2>From a noisy world<br />to a <span className="accent-text">clearer answer.</span></h2></div><p>Give your agent the building blocks for a better briefing: relevant reporting, reliable updates, and a trail back to the source.</p></div>
-        <div className="benefit-grid">
-          <article className="benefit-card"><div className="benefit-top"><span className="icon-tile violet"><Radar /></span><span>01 / DISCOVER</span></div><h3>Your interests.<br />Your corner of the world.</h3><p>Find a company, a policy, or a technology in the topic catalog. Start with the coverage that matters to your question.</p><Link href="/dashboard">Find a topic <ArrowUpRight size={17} /></Link></article>
-          <article className="benefit-card"><div className="benefit-top"><span className="icon-tile mint"><Layers3 /></span><span>02 / STAY CURRENT</span></div><h3>New developments.<br />Less repetition.</h3><p>Save your place and ask for the next page of articles. Source URL deduplication keeps repeated results out of the stream.</p><Link href="/docs#changes">Meet reliable updates <ArrowUpRight size={17} /></Link></article>
-          <article className="benefit-card"><div className="benefit-top"><span className="icon-tile peach"><Link2 /></span><span>03 / GO DEEPER</span></div><h3>A useful answer.<br />A source behind it.</h3><p>Publisher links, excerpts, and timestamps travel together. Follow the reporting and see when coverage was last checked.</p><Link href="/docs#freshness">Understand the context <ArrowUpRight size={17} /></Link></article>
-        </div>
-      </section>
-
-      <section className="agent-section wrap">
-        <div className="agent-section-copy"><span className="eyebrow">BRING YOUR OWN AGENT</span><h2>A new perspective.<br />In the tools<br />you already use.</h2><p>Connect a compatible MCP client, build with the TypeScript SDK, or give your OpenRouter app news tools. Same news. Your workflow.</p><Link href="/connect" className="button button-white">Choose your integration <ArrowUpRight size={18} /></Link></div>
-        <div className="integration-stack">
-          <Link href="/connect" className="stack-card"><span className="stack-icon"><Plug size={24} /></span><div><span>FOR ASSISTANTS</span><h3>MCP connection</h3><p>News tools, directly in your agent.</p></div><ArrowUpRight size={22} /></Link>
-          <Link href="/connect" className="stack-card"><span className="stack-icon"><Code2 size={24} /></span><div><span>FOR BUILDERS</span><h3>TypeScript client</h3><p>A small client for your next big idea.</p></div><ArrowUpRight size={22} /></Link>
-          <Link href="/connect" className="stack-card"><span className="stack-icon"><Workflow size={24} /></span><div><span>FOR AGENT WORKFLOWS</span><h3>OpenRouter tools</h3><p>Let your model ask for news context.</p></div><ArrowUpRight size={22} /></Link>
-        </div>
-      </section>
-
-      <section className="section wrap topics-section"><div className="section-heading"><div><span className="eyebrow">FOLLOW YOUR CURIOSITY</span><h2>Start with a topic.<br />See where it takes you.</h2></div><Link className="text-button" href="/dashboard">Explore the catalog <ArrowRight size={18} /></Link></div>
-        <div className="topic-grid">{topics.map(t => <Link href={`/dashboard?q=${encodeURIComponent(t.name)}`} key={t.name} className={`topic-card ${t.color}`}><span className="topic-category">{t.category}<ArrowUpRight size={20} /></span><t.icon className="topic-emblem" size={40} strokeWidth={1.4} /><h3>{t.name}</h3><span className="topic-action">Explore coverage <ArrowRight size={16} /></span></Link>)}</div>
-        <p className="catalog-note">The pilot covers selected English-language topics. Check the explorer for availability and freshness.</p>
-      </section>
-      <section className="closing-section"><div className="wrap"><span className="eyebrow">A LITTLE CONTEXT CHANGES EVERYTHING</span><h2>Give your agent<br /><span>a window on the world.</span></h2><Link href="/connect" className="button">Make the connection <ArrowUpRight size={18} /></Link><p>Explore the setup guide. Find the connection that fits.</p></div></section>
-    </main><Footer />
-  </>;
+        <section className="wrap section">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">CHOOSE YOUR STARTING POINT</div>
+              <h2>
+                Three ways in.
+                <br />
+                Plenty of room to build.
+              </h2>
+            </div>
+            <p>
+              Use the tools NewsAPI.ai already maintains. We bring the links,
+              setup notes, and ideas together so you can get going.
+            </p>
+          </div>
+          <div className="benefit-grid">
+            <article className="benefit-card">
+              <div className="benefit-top">
+                <span className="icon-tile violet">
+                  <Plug />
+                </span>
+                <span>01 / ASSISTANTS</span>
+              </div>
+              <h3>Connect with MCP.</h3>
+              <p>
+                Add news tools to a compatible client, including Claude Desktop
+                or Cursor, through the official newsapi-mcp package.
+              </p>
+              <Link href="/connect#mcp">
+                Set up your assistant <ArrowRight size={16} />
+              </Link>
+            </article>
+            <article className="benefit-card">
+              <div className="benefit-top">
+                <span className="icon-tile mint">
+                  <Workflow />
+                </span>
+                <span>02 / AUTOMATION</span>
+              </div>
+              <h3>Make news a workflow.</h3>
+              <p>
+                Connect n8n to Event Registry using HTTP Request nodes. Start
+                with the provider’s research, alert, and sentiment examples.
+              </p>
+              <Link href="/connect#n8n">
+                Build an n8n workflow <ArrowRight size={16} />
+              </Link>
+            </article>
+            <article className="benefit-card">
+              <div className="benefit-top">
+                <span className="icon-tile peach">
+                  <Braces />
+                </span>
+                <span>03 / DEVELOPERS</span>
+              </div>
+              <h3>Build it your way.</h3>
+              <p>
+                Explore the official Python and Node.js libraries, query
+                articles and events, and prototype requests in the API sandbox.
+              </p>
+              <Link href="/connect#code">
+                Explore SDKs & REST <ArrowRight size={16} />
+              </Link>
+            </article>
+          </div>
+        </section>
+        <section className="wrap">
+          <div className="free-section">
+            <div>
+              <div className="eyebrow">YOUR FIRST EXPERIMENT STARTS HERE</div>
+              <h2>
+                Big idea?
+                <br />
+                Start small. <em>Start free.</em>
+              </h2>
+              <p className="free-plan-copy">{FREE_PLAN_COPY}</p>
+              <div className="hero-actions">
+                <a className="button" href={REGISTER}>
+                  Get your free API key <ArrowUpRight size={17} />
+                </a>
+                <a className="text-button" href="https://newsapi.ai/plans">
+                  See official plan details ↗
+                </a>
+              </div>
+            </div>
+            <div className="allowance">
+              <span className="allowance-label">NEWSAPI.AI FREE PLAN</span>
+              <strong>
+                2,000<span>searches to get started</span>
+              </strong>
+              <div className="allowance-rule" />
+              <p>
+                One-time 2,000-token allowance.
+                <br />
+                No credit card required.
+              </p>
+              <small>
+                API token use varies by request. Event searches, archive
+                queries, and additional result pages can use the allowance
+                differently.
+              </small>
+            </div>
+          </div>
+        </section>
+        <section className="wrap section">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">A SHORT PATH TO YOUR FIRST QUERY</div>
+              <h2>
+                Less setup.
+                <br />
+                More “what’s happening?”
+              </h2>
+            </div>
+            <Link className="text-button" href="/docs">
+              Read the getting-started guide <ArrowRight size={17} />
+            </Link>
+          </div>
+          <div className="start-grid">
+            <div className="start-notes">
+              <div>
+                <span>1</span>
+                <section>
+                  <h3>Bring your API key</h3>
+                  <p>
+                    Create an account at NewsAPI.ai. Keep your key in your own
+                    client or server.
+                  </p>
+                </section>
+              </div>
+              <div>
+                <span>2</span>
+                <section>
+                  <h3>Choose a tool</h3>
+                  <p>
+                    MCP for an assistant, n8n for a workflow, or an SDK for your
+                    application.
+                  </p>
+                </section>
+              </div>
+              <div>
+                <span>3</span>
+                <section>
+                  <h3>Ask a focused question</h3>
+                  <p>
+                    Start with a recent topic. Ask for dates and original links,
+                    then review the sources.
+                  </p>
+                </section>
+              </div>
+            </div>
+            <div className="terminal-card">
+              <div className="terminal-caption">
+                <Plug size={17} />
+                <span>OFFICIAL MCP PACKAGE</span>
+                <a href="https://www.npmjs.com/package/newsapi-mcp">npm ↗</a>
+              </div>
+              <CodeBlock
+                label="Package command · Node.js 18+"
+                code="npx -y newsapi-mcp"
+              />
+              <p>
+                The command starts the local server. Your MCP client also needs
+                the NEWSAPI_KEY environment variable.
+              </p>
+              <Link className="text-button" href="/connect#mcp">
+                Copy the full client configuration <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className="idea-section">
+          <div className="wrap section">
+            <div className="section-heading">
+              <div>
+                <div className="eyebrow">TAKE AN IDEA AND RUN WITH IT</div>
+                <h2>What will you build?</h2>
+              </div>
+              <p>Community project ideas to make the tools your own.</p>
+            </div>
+            <div className="topic-grid">
+              <Link className="topic-card violet" href="/connect#mcp">
+                <div className="topic-category">
+                  RESEARCH <ArrowUpRight size={17} />
+                </div>
+                <BookOpen
+                  className="topic-emblem"
+                  size={34}
+                  strokeWidth={1.5}
+                />
+                <h3>A briefing with receipts.</h3>
+                <p className="idea-copy">
+                  Ask your assistant for a topic summary with dates and source
+                  links.
+                </p>
+                <div className="topic-action">
+                  Start with MCP <ArrowRight size={14} />
+                </div>
+              </Link>
+              <a
+                className="topic-card mint"
+                href="https://newsapi.ai/documentation?tab=n8n_news_alert_system"
+              >
+                <div className="topic-category">
+                  AUTOMATION <ArrowUpRight size={17} />
+                </div>
+                <Newspaper
+                  className="topic-emblem"
+                  size={34}
+                  strokeWidth={1.5}
+                />
+                <h3>The right news, on cue.</h3>
+                <p className="idea-copy">
+                  Explore an n8n workflow that checks for news around your
+                  interests.
+                </p>
+                <div className="topic-action">
+                  See the official walkthrough <ArrowRight size={14} />
+                </div>
+              </a>
+              <a
+                className="topic-card peach"
+                href="https://newsapi.ai/documentation?tab=n8n_sentiment_dashboard"
+              >
+                <div className="topic-category">
+                  EXPLORATION <ArrowUpRight size={17} />
+                </div>
+                <Sparkles
+                  className="topic-emblem"
+                  size={34}
+                  strokeWidth={1.5}
+                />
+                <h3>A view beyond headlines.</h3>
+                <p className="idea-copy">
+                  Use sentiment data as a starting point for exploring coverage.
+                </p>
+                <div className="topic-action">
+                  Explore the dashboard example <ArrowRight size={14} />
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="closing-section">
+          <div className="wrap">
+            <div className="eyebrow">BUILT IN THE OPEN</div>
+            <h2>
+              A resource for builders.
+              <br />
+              <span>Better with you.</span>
+            </h2>
+            <a className="button" href={REPO}>
+              Contribute on GitHub <GitBranch size={17} />
+            </a>
+            <p>
+              Share a useful resource, improve a guide, or suggest your next
+              project idea.
+            </p>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }

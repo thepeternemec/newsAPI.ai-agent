@@ -1,0 +1,209 @@
+[
+  {
+    "id": "mcp",
+    "title": "NewsAPI MCP server",
+    "description": "Connect a compatible AI assistant to NewsAPI.ai using the published newsapi-mcp package.",
+    "category": "MCP",
+    "url": "https://www.npmjs.com/package/newsapi-mcp",
+    "source": "Official package",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "mcp-source",
+    "title": "MCP source & client setup",
+    "description": "Read the source, requirements, and configuration examples maintained by Event Registry.",
+    "category": "MCP",
+    "url": "https://github.com/EventRegistry/newsapi-mcp",
+    "source": "Official repository",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "research-skill",
+    "title": "News research skill",
+    "description": "Explore the research workflow and skill included with the official MCP project.",
+    "category": "MCP",
+    "url": "https://github.com/EventRegistry/newsapi-mcp/tree/main/skill",
+    "source": "Official repository",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "mcp-docs",
+    "title": "MCP integration guide",
+    "description": "Start with the provider\u2019s documentation for connecting news tools to your assistant.",
+    "category": "MCP",
+    "url": "https://newsapi.ai/documentation?tab=newsapi_mcp",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "n8n",
+    "title": "n8n getting started",
+    "description": "Set up Event Registry credentials and connect native HTTP Request nodes.",
+    "category": "n8n",
+    "url": "https://newsapi.ai/documentation?tab=n8n_overview",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "n8n-research",
+    "title": "Content research assistant",
+    "description": "Use the official walkthrough to turn a topic into a research email.",
+    "category": "n8n",
+    "url": "https://newsapi.ai/documentation?tab=n8n_content_research",
+    "source": "Official walkthrough",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "n8n-alerts",
+    "title": "News alert system",
+    "description": "Follow the provider\u2019s example for building a news alert workflow.",
+    "category": "n8n",
+    "url": "https://newsapi.ai/documentation?tab=n8n_news_alert_system",
+    "source": "Official walkthrough",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "n8n-sentiment",
+    "title": "Sentiment dashboard",
+    "description": "Explore the official n8n example for working with news sentiment.",
+    "category": "n8n",
+    "url": "https://newsapi.ai/documentation?tab=n8n_sentiment_dashboard",
+    "source": "Official walkthrough",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "python",
+    "title": "Python SDK",
+    "description": "Build a research script or add news retrieval to your Python agent.",
+    "category": "SDK & REST",
+    "url": "https://github.com/EventRegistry/event-registry-python",
+    "source": "Official repository",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "python-guide",
+    "title": "Python introduction",
+    "description": "Work through the provider\u2019s introduction to its Python library.",
+    "category": "SDK & REST",
+    "url": "https://newsapi.ai/intro-python",
+    "source": "Official guide",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "node",
+    "title": "Node.js SDK",
+    "description": "Add article and event queries to a JavaScript application.",
+    "category": "SDK & REST",
+    "url": "https://github.com/EventRegistry/event-registry-node-js",
+    "source": "Official repository",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "sandbox",
+    "title": "API sandbox",
+    "description": "Explore query parameters and generate requests in the official sandbox.",
+    "category": "SDK & REST",
+    "url": "https://newsapi.ai/documentation/sandbox?tab=introduction",
+    "source": "Official tool",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "articles",
+    "title": "Article search",
+    "description": "Find the request parameters for querying news articles.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=searchArticles",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "events",
+    "title": "Event search",
+    "description": "Query events that group related coverage of a real-world development.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=searchEvents",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "topics",
+    "title": "Topic page articles",
+    "description": "Retrieve articles associated with a saved topic page.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=searchArticlesForTopic",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "entities",
+    "title": "Entity suggestions",
+    "description": "Look up concepts before applying entity filters to a query.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=suggConcepts",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "query",
+    "title": "Query language",
+    "description": "Explore how the API combines filters for more precise retrieval.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=query_language",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "models",
+    "title": "Response data models",
+    "description": "Understand the fields returned for articles and events.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=data_models",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "languages",
+    "title": "Supported languages",
+    "description": "Check the provider\u2019s list of languages and their identifiers.",
+    "category": "API reference",
+    "url": "https://newsapi.ai/documentation?tab=supported_languages",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "usage",
+    "title": "API usage",
+    "description": "Look up usage information and understand your API allowance.",
+    "category": "Account & plans",
+    "url": "https://newsapi.ai/documentation?tab=usage",
+    "source": "Official documentation",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "plans",
+    "title": "Free allowance & plans",
+    "description": "Understand the one-time free allowance and how API tokens are counted.",
+    "category": "Account & plans",
+    "url": "https://newsapi.ai/plans",
+    "source": "Official plans",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "signup",
+    "title": "Get an API key",
+    "description": "Create your NewsAPI.ai account directly with the provider.",
+    "category": "Account & plans",
+    "url": "https://newsapi.ai/register",
+    "source": "Official registration",
+    "reviewedAt": "2026-09-13"
+  },
+  {
+    "id": "community",
+    "title": "Contribute to this guide",
+    "description": "Suggest a resource, improve an explanation, or help another builder get started.",
+    "category": "Community",
+    "url": "https://github.com/thepeternemec/newsAPI.ai-agent",
+    "source": "Community repository",
+    "reviewedAt": "2026-09-13"
+  }
+]

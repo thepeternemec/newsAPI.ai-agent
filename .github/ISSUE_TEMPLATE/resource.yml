@@ -1,0 +1,27 @@
+name: Suggest a resource
+description: Add or update a useful NewsAPI.ai resource.
+title: "Resource: "
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Resource URL
+      description: Direct public HTTPS link. Do not include API keys.
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Who maintains this resource?
+      options:
+        - NewsAPI.ai / Event Registry (official)
+        - Community contributor
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: How does this help a developer?
+      description: Include prerequisites and any source-review or test evidence.
+    validations:
+      required: true

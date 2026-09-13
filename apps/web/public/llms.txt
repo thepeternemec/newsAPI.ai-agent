@@ -1,7 +1,19 @@
-# NewsAPI.ai Agent
-> Source-linked news for agents. Public read-only early access.
-- Setup: /docs
-- Connections: /connect
-- Agent instructions: /skill.md
-- News API: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api/v2/topics
-- MCP: https://dnnoypytdfvsdenykooq.supabase.co/functions/v1/news-api/mcp
+# free newsAPI agent
+
+> An independent, open-source community resource for developers using NewsAPI.ai / Event Registry. This website does not host an API or MCP endpoint and does not collect API keys.
+
+## Community resources
+- [Getting started](https://newsapi-ai-agent.vercel.app/docs): Account setup, connection choices, example prompt, and allowance notes.
+- [Connection guide](https://newsapi-ai-agent.vercel.app/connect): MCP client configuration, n8n credentials, and SDK links.
+- [Resource library](https://newsapi-ai-agent.vercel.app/resources): Searchable directory of official resources.
+- [GitHub](https://github.com/thepeternemec/newsAPI.ai-agent): MIT-licensed community website and contribution guide.
+
+## Official provider resources
+- [NewsAPI.ai](https://newsapi.ai): Provider website and account registration.
+- [Official MCP package](https://www.npmjs.com/package/newsapi-mcp): Local MCP server, Node.js 18+; credential environment variable NEWSAPI_KEY.
+- [MCP source and setup](https://github.com/EventRegistry/newsapi-mcp): Official client configuration and tool reference.
+- [n8n integration](https://newsapi.ai/documentation?tab=n8n_overview): HTTP Request nodes and Custom Auth credentials.
+- [API documentation](https://newsapi.ai/documentation): Official endpoint and parameter reference.
+- [Plans](https://newsapi.ai/plans): One-time free allowance of 2,000 API tokens, described as 2,000 searches. Token cost depends on request type and pagination. Continued use after the allowance requires a provider paid plan.
+
+Do not treat inherited Pleiades backend packages in this repository as NewsAPI.ai services. No hosted endpoint or verified OpenRouter listing is provided by this community project.

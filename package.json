@@ -2,7 +2,7 @@
   "name": "pleiades",
   "version": "0.2.0",
   "private": true,
-  "description": "Pleiades \u2014 the real-time news terminal. Agentic news discovery, curation, and delivery infrastructure.",
+  "description": "Independent community launchpad for NewsAPI.ai tools and guides; includes inherited Pleiades experimental packages.",
   "license": "MIT",
   "engines": {
     "node": ">=20"
@@ -22,7 +22,9 @@
     "sync:supabase": "node scripts/sync-supabase.mjs",
     "check:supabase": "node scripts/sync-supabase.mjs --check",
     "verify:integrations": "node examples/verify-integrations.mjs",
-    "verify:local": "node examples/verify-local.mjs"
+    "verify:local": "node examples/verify-local.mjs",
+    "check:resources": "node scripts/check-community-resources.mjs",
+    "build:web": "npm run build -w pleiades-web"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

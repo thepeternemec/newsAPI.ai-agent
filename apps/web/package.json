@@ -1,7 +1,7 @@
 {
   "name": "pleiades-web",
   "version": "0.2.0",
-  "description": "pleiades.news landing site.",
+  "description": "free newsAPI agent \u2014 independent community resource website for NewsAPI.ai.",
   "private": true,
   "scripts": {
     "dev": "next dev",

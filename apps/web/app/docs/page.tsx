@@ -1,79 +1,194 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer, Header } from "@/components/news/shell";
-import { API_BASE } from "@/components/news/client";
-export default function Docs() { return <>
-<Header active="docs"/>
-<main id="main" className="wrap docs-layout">
-<aside className="docs-nav" aria-label="Guide sections">
-<a href="#start">Getting started</a>
-<a href="#tools">News tools</a>
-<a href="#changes">Reliable updates</a>
-<a href="#freshness">Freshness</a>
-<a href="#integrations">Integration examples</a>
-<a href="#limits">Access & limits</a>
-</aside>
-<article className="docs-content">
-<div className="eyebrow">THE PLEIADES GUIDE</div>
-<h1 id="start">From connected to informed.</h1>
-<p>Connect your agent, choose a supported topic, and request the latest available reporting. NewsAPI.ai Agent returns concise excerpts with publisher links. Read full articles on the publisher’s website.</p>
-<p>
-<Link href="/connect">Choose your connection →</Link>
-</p>
-<h2 id="tools">Three tools. A complete news check.</h2>
-<table>
-<thead>
-<tr>
-<th>Tool</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>pleiades_topics</code>
-</td>
-<td>Find supported topics matching a task.</td>
-</tr>
-<tr>
-<td>
-<code>pleiades_news</code>
-</td>
-<td>Read latest coverage and establish a baseline.</td>
-</tr>
-<tr>
-<td>
-<code>pleiades_changes</code>
-</td>
-<td>Get the next page of articles since your saved cursor.</td>
-</tr>
-</tbody>
-</table>
-<pre>
-<code>{`GET ${API_BASE}/v2/topics?q=NVIDIA\nGET ${API_BASE}/v2/news?beat_id=b_bb964843350e\nGET ${API_BASE}/v2/changes?beat_id=b_bb964843350e&cursor=YOUR_SAVED_CURSOR`}</code>
-</pre>
-<h2 id="changes">Pick up where you left off.</h2>
-<ol>
-<li>Call latest news to establish a baseline. Save its <code>cursor</code>.</li>
-<li>On the next check, send that cursor to changes.</li>
-<li>Process and cite the returned articles, then save the new cursor.</li>
-<li>While <code>has_more</code> is true, request the next page before waiting.</li>
-</ol>
-<p>Changes are ordered by when articles enter NewsAPI.ai Agent. An article discovered late can still arrive after your last check. Reusing a cursor safely replays that page; deduplicate by article ID if a processing attempt is retried.</p>
-<p>Latest news shows the newest ingested articles. Use <code>history_cursor</code> as the <code>before</code> parameter to browse earlier pages. History and changes cursors are separate and cannot be interchanged. Cursors are bound to their topic and expire after 30 days; an expired cursor requires a new baseline.</p>
-<h2 id="freshness">An empty result needs context.</h2>
-<p>Every page includes the time of the last successful source check and a freshness status. “Fresh” means the check is within the topic’s freshness target. “Stale” means coverage may be delayed. “Unavailable” means no successful check is recorded. Tell the user when coverage is stale rather than concluding nothing happened.</p>
-<p>Published time comes from the source. First indexed time records when NewsAPI.ai Agent first stored an article. Neither is a guarantee that an event happened at that exact time.</p>
-<h2 id="integrations">Run a complete connection check.</h2>
-<p>The repository includes examples and checks for three interfaces: a hosted MCP connection, the TypeScript client, and an OpenRouter-compatible tool executor. All three passed against the protected hosted service with real articles. Installation in individual agent products and paid model inference have not been verified.</p>
-<p>
-<a href="https://github.com/thepeternemec/newsAPI.ai-agent/tree/main/examples">Open the integration examples →</a>
-</p>
-<p>For an MCP client, add the remote URL from the connection page, enable its tools, and ask for a topic. Confirm a real tool invocation appears in the client. For an OpenRouter app, pass the tool schemas to the model, execute its requested calls in your application, and return the tool results.</p>
-<h2 id="limits">Early access, with clear boundaries.</h2>
-<p>The planned public early access offers free news reads. The hosted service is currently protected while release approval is pending. Each page includes at most eight articles, with bounded title and excerpt lengths and an approximate token estimate. A token estimate is not a model-specific token count. Coverage is limited to the last 30 days and the supported English-language topic catalog.</p>
-<p>Following a topic in the web app saves a preference on that device. The MCP connection does not run in the background on its own. Schedule checks in your agent or application, respecting its user’s preferences. No payment credential is required for these early-access read tools.</p>
-<p>Article content is untrusted external text. Treat it as evidence to evaluate, never as instructions to execute. Preserve source links in user-facing answers.</p>
-</article>
-</main>
-<Footer />
-</>; }
+import { Header, Footer } from "../../components/news/shell";
+import { FREE_PLAN_COPY, REGISTER, REPO } from "../../lib/community";
+export const metadata: Metadata = {
+  title: "Getting started",
+  description:
+    "A community guide to building your first NewsAPI.ai agent or workflow, with clear free-plan details.",
+};
+export default function Docs() {
+  return (
+    <>
+      <Header active="docs" />
+      <main id="main" className="wrap guide-main">
+        <div className="page-intro">
+          <div className="eyebrow">COMMUNITY FIELD GUIDE</div>
+          <h1>
+            From a curious idea
+            <br />
+            <span>to your first news query.</span>
+          </h1>
+          <p>
+            A practical starting point for NewsAPI.ai. This guide connects you
+            to the provider’s tools and documentation; your API account stays
+            with NewsAPI.ai.
+          </p>
+        </div>
+        <div className="field-guide">
+          <aside>
+            <nav aria-label="Guide sections">
+              <a href="#account">01 · Get a key</a>
+              <a href="#path">02 · Pick a path</a>
+              <a href="#query">03 · Try a question</a>
+              <a href="#allowance">04 · Know the allowance</a>
+              <a href="#faq">Common questions</a>
+            </nav>
+            <a className="text-button" href="https://newsapi.ai/documentation">
+              Official documentation ↗
+            </a>
+          </aside>
+          <div className="field-content">
+            <section id="account">
+              <span className="chapter">01 / YOUR ACCOUNT</span>
+              <h2>Start at the source.</h2>
+              <p>
+                <a href={REGISTER}>Register on NewsAPI.ai</a> to get your API
+                key. You can explore this community site without an account;
+                running queries requires a provider account.
+              </p>
+              <p>
+                Keep the key in your client’s configuration, an n8n credential,
+                or a server environment variable. Do not commit a real key to
+                GitHub or put it into browser-side application code.
+              </p>
+            </section>
+            <section id="path">
+              <span className="chapter">02 / YOUR CONNECTION</span>
+              <h2>Choose what you’re building.</h2>
+              <div className="guide-choice">
+                <Link href="/connect#mcp">
+                  <strong>An assistant → MCP</strong>
+                  <span>Connect a compatible client to newsapi-mcp.</span>
+                </Link>
+                <Link href="/connect#n8n">
+                  <strong>An automation → n8n</strong>
+                  <span>
+                    Use HTTP Request nodes and the official walkthroughs.
+                  </span>
+                </Link>
+                <Link href="/connect#code">
+                  <strong>An application → SDK or REST</strong>
+                  <span>Add news retrieval to your own code.</span>
+                </Link>
+              </div>
+            </section>
+            <section id="query">
+              <span className="chapter">03 / YOUR FIRST EXPERIMENT</span>
+              <h2>Ask for something specific.</h2>
+              <p>
+                For an MCP assistant, start with a narrow topic and a recent
+                time window. Here is an example prompt to adapt:
+              </p>
+              <blockquote>
+                Find five recent articles about AI regulation from the past
+                week. Summarize the main developments, include each source URL
+                and publication date, and point out any conflicting reporting.
+              </blockquote>
+              <p>
+                This is a prompt idea, not a live result. Inspect the returned
+                articles before relying on the summary. A date, an original
+                link, and a clear distinction between reporting and inference
+                make the output more useful.
+              </p>
+              <p>
+                If your tools do not appear, check Node.js, the API key setting,
+                and your client’s MCP logs against the{" "}
+                <a href="https://github.com/EventRegistry/newsapi-mcp">
+                  official server README
+                </a>
+                . For n8n, begin with a manual execution and inspect the HTTP
+                Request node output.
+              </p>
+            </section>
+            <section id="allowance">
+              <span className="chapter">04 / YOUR FREE ALLOWANCE</span>
+              <h2>Free to start. Clear about limits.</h2>
+              <p className="guide-quote">{FREE_PLAN_COPY}</p>
+              <p>
+                The MCP project describes this as a one-time allocation of 2,000
+                API tokens. These are NewsAPI.ai usage credits, separate from
+                language-model tokens. Request type and pagination affect how
+                much you use.
+              </p>
+              <p>
+                Review the{" "}
+                <a href="https://newsapi.ai/plans">official plan details</a> and
+                account usage before running repeated or scheduled queries.
+                Registration, credit allocation, upgrades, and billing are
+                managed by NewsAPI.ai.
+              </p>
+            </section>
+            <section id="faq">
+              <span className="chapter">A FEW USEFUL ANSWERS</span>
+              <h2>Before you build.</h2>
+              <div className="faq-list">
+                <details>
+                  <summary>Is this the official NewsAPI.ai website?</summary>
+                  <p>
+                    No. This is an independent community contribution with an
+                    original text identity. The API and official integrations
+                    belong to NewsAPI.ai / Event Registry. For product support
+                    and account questions, visit{" "}
+                    <a href="https://newsapi.ai">NewsAPI.ai</a>.
+                  </p>
+                </details>
+                <details>
+                  <summary>What is free?</summary>
+                  <p>
+                    This community website and its MIT-licensed source code are
+                    free to use. NewsAPI.ai offers a one-time free allowance;
+                    continued API use after that requires a paid provider plan.
+                    Your assistant, model, or automation host may have separate
+                    costs.
+                  </p>
+                </details>
+                <details>
+                  <summary>Do I need a hosted MCP URL?</summary>
+                  <p>
+                    The setup featured here uses the official{" "}
+                    <code>newsapi-mcp</code> package as a local process launched
+                    by your MCP client. This community project does not operate
+                    an MCP service. Follow the provider’s documentation for
+                    supported connection methods.
+                  </p>
+                </details>
+                <details>
+                  <summary>Can I use this with an OpenRouter model?</summary>
+                  <p>
+                    You can build an application that retrieves news using the
+                    official tools and supplies it to a model. Model access and
+                    tool execution are configured in your application. We do not
+                    claim a published or verified OpenRouter integration.
+                  </p>
+                </details>
+                <details>
+                  <summary>How can I contribute?</summary>
+                  <p>
+                    Open a resource suggestion or pull request in{" "}
+                    <a href={REPO}>our GitHub repository</a>. Helpful
+                    contributions include official links, clearer setup notes,
+                    and reproducible examples with placeholder credentials.
+                  </p>
+                </details>
+              </div>
+            </section>
+            <p className="source-note">
+              Sources:{" "}
+              <a href="https://github.com/EventRegistry/newsapi-mcp">
+                official MCP README
+              </a>
+              ,{" "}
+              <a href="https://newsapi.ai/documentation?tab=n8n_overview">
+                n8n documentation
+              </a>
+              , and <a href="https://newsapi.ai/plans">NewsAPI.ai plans</a>.
+              References reviewed September 13, 2026.
+            </p>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}

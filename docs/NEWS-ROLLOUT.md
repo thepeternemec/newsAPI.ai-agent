@@ -1,3 +1,5 @@
+> **Historical Pleiades prototype document.** This is not the current community website or official NewsAPI.ai documentation. See [the archive note](README.md).
+
 # Customer news release
 
 ## Implemented and verified

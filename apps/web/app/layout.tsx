@@ -1,11 +1,33 @@
 import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
-    title: { default: "NewsAPI.ai Agent — A world of news for your agent", template: "%s · NewsAPI.ai Agent" },
-    description: "Connect your agent to fresh news. Follow the topics that matter, catch new developments, and go straight to the original reporting.",
+  metadataBase: new URL("https://newsapi-ai-agent.vercel.app"),
+  title: {
+    default: "free newsAPI agent — A community launchpad for news-powered AI",
+    template: "%s · free newsAPI agent",
+  },
+  description:
+    "A community-built home for NewsAPI.ai’s official MCP server, n8n workflows, SDKs, and guides. Start with the one-time free allowance and build something useful.",
+  openGraph: {
+    title: "free newsAPI agent",
+    description:
+      "Your agent. Meet the world. An independent community launchpad for NewsAPI.ai tools.",
+    type: "website",
+  },
 };
-export default function RootLayout({ children }: {
-    children: React.ReactNode;
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
 }) {
-    return <html lang="en"><body><a className="skip-link" href="#main">Skip to content</a>{children}</body></html>;
+  return (
+    <html lang="en">
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        {children}
+      </body>
+    </html>
+  );
 }

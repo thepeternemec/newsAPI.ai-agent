@@ -1,123 +1,76 @@
-# NewsAPI.ai Agent
+# free newsAPI agent
 
-**News for your agents.** Connect an agent, discover a supported topic, read source-linked articles, and retrieve changes from a saved cursor.
+**Your agent. Meet the world.**
 
-## Repository
+An independent, open-source community launchpad for developers building with **[NewsAPI.ai](https://newsapi.ai)**. Find the official MCP server, n8n walkthroughs, SDKs, and API documentation in one place.
 
-This is the independent `thepeternemec/newsAPI.ai-agent` repository, initialized from the verified Pleiades redesign at commit `ef53729195929edc8ebd3a26560599bbb008fcb7`, with its history and MIT license preserved. The original repository is unchanged.
+[Visit the website](https://newsapi-ai-agent.vercel.app) · [Browse resources](https://newsapi-ai-agent.vercel.app/resources) · [Connection guide](https://newsapi-ai-agent.vercel.app/connect) · [Contribute](CONTRIBUTING.md)
 
-The website uses the NewsAPI.ai Agent identity and violet palette. Internal package and tool names retain the Pleiades identifiers for compatibility. Existing Supabase endpoints and Vercel preview links refer to the original pilot; creating this repository does not provision separate hosting, copy credentials, or activate production access. Configure its own deployment before treating this as a separately hosted service.
+## Start building
 
-## Customer news release
+| Your project | Official starting point |
+| --- | --- |
+| AI assistant | [newsapi-mcp on npm](https://www.npmjs.com/package/newsapi-mcp) · [Source and client setup](https://github.com/EventRegistry/newsapi-mcp) |
+| n8n automation | [Integration overview](https://newsapi.ai/documentation?tab=n8n_overview) |
+| Python application | [Python SDK](https://github.com/EventRegistry/event-registry-python) |
+| JavaScript application | [Node.js SDK](https://github.com/EventRegistry/event-registry-node-js) |
+| Custom API integration | [Official documentation](https://newsapi.ai/documentation) · [Sandbox](https://newsapi.ai/documentation/sandbox?tab=introduction) |
 
-The current branch adds the redesigned website, news explorer, connection guide, v2 article stream and hosted MCP implementation. See [NEWS-ROLLOUT.md](docs/NEWS-ROLLOUT.md) for exact deployment status, validation evidence, operating limits and rollout steps. The migration and protected news backend are deployed and verified against real articles. Public access, recurring refresh and production homepage promotion await release approval.
+NewsAPI.ai already provides these tools. This project helps developers discover and use them; it does not operate a replacement news API, hosted MCP service, or provider account system.
 
-- Website: `/` · news explorer: `/dashboard` · connections: `/connect` · guide: `/docs`
-- Agent discovery: `/llms.txt` and `/skill.md`
-- News API: `/v2/topics`, `/v2/news`, `/v2/changes`, `/v2/tools`
-- MCP: `/mcp` (standard Streamable HTTP)
-- [Integration examples](examples/README.md): TypeScript, MCP and OpenRouter tool calling
+## Free to try
+
+> Your free plan includes 2,000 searches. Once they’re used, upgrade to a paid plan to keep going.
+
+Source: [NewsAPI.ai plans](https://newsapi.ai/plans). The [official MCP project](https://github.com/EventRegistry/newsapi-mcp) describes a **one-time 2,000-token allowance**. API tokens are usage credits, separate from LLM tokens. Request type, archive access, and pagination affect consumption. Registration and billing are handled by NewsAPI.ai. Other services you choose, such as model access or n8n hosting, may have their own costs.
+
+[Create your NewsAPI.ai account](https://newsapi.ai/register).
+
+## Run the community website
+
+Requires Node.js 20+ for this repository (CI uses Node.js 22) and npm. The official MCP package separately requires Node.js 18+.
 
 ```sh
 npm ci
-npm run build
-npm test
-npm run verify:local
 npm run dev:web
 ```
 
-`verify:local` uses deterministic test data and performs no external model or provider requests. The SDK is a workspace package, not an npm-published package. The three interfaces also pass against the protected deployed service; specific agent-host installation and paid model inference remain unverified.
+Open http://localhost:3000. **No API key, database, or environment file is required to run this resource website.** It does not send live news queries or accept credentials.
 
-Supabase remains the backend and Vercel remains the intended website host. No existing v1 route or legacy worker is removed. The new `news-worker` is separately deployed and scheduled only after its first successful verification.
-
-## Repository layout
-
-```
-pleiades/
-├── apps/
-│   ├── api/       # REST API — Node dev mirror of the Edge Function
-│   ├── worker/    # ingestion logic — Node dev mirror of the Edge Function
-│   ├── bots/      # Telegram + Discord delivery adapters (Phase 3)
-│   └── web/       # pleiades.news landing site (Next.js → Vercel)
-├── packages/
-│   ├── contracts/ # canonical schemas: beats, packs, receipts, errors + seed catalog
-│   └── sdk/       # TypeScript client for the API
-├── supabase/
-│   ├── functions/ # Edge Functions: api (REST), worker (ingestion cron)
-│   │   └── _shared/  # GENERATED Deno modules — run `npm run sync:supabase`
-│   ├── migrations/   # packs, ledger, receipts schema
-│   └── README.md     # platform setup (supabase CLI, secrets, schedules)
-├── scripts/
-│   └── sync-supabase.mjs  # canonical sources → Deno _shared (single source of truth)
-├── docs/
-│   ├── VISION.md        # product vision & audience map
-│   ├── ARCHITECTURE.md  # system design, data flow, repo map
-│   ├── ROADMAP.md       # v0.1 audit → phased plan (Phases 0–6)
-│   └── V2-CONTRACT.md   # proposed v2 endpoint/schema extensions
-└── .github/workflows/ci.yml   # build + test + drift check + deno check
+```sh
+npm run check:resources
+npm run build:web
 ```
 
-## Status
+These checks validate the resource catalog and build/type-check the site. Full repository checks remain available through `npm run build`, `npm test`, and the existing CI workflow.
 
-| Layer | State |
-|---|---|
-| Contract & schemas (`@pleiades/contracts`) | ✅ canonical v0.2 schema + 20 seed beats (mirrors the live v0.1 catalog) |
-| API (`supabase/functions/api`) | ✅ serving `/health`, `/v1/catalog`, `/v1/tools`, `/v1/pricing`, `/openapi.json`; poll/delta serve **persisted packs** when Supabase is configured, honest `503` otherwise |
-| Ingestion (`supabase/functions/worker`) | ✅ newsapi.ai fetch → event clustering → dedupe → pack → Supabase persistence; ledger billing loop pending (Phase 0/4) |
-| Bots (`apps/bots`) | 🚧 Telegram/Discord delivery adapters; loop wired in Phase 3 |
-| Webhooks | ✅ register/list/revoke on the API; HMAC-signed `pack.advanced` delivery from the worker |
-| Realtime push | ✅ `@pleiades/realtime` client (pack inserts → canonical packs); Supabase Realtime enabled on `packs` |
-| News MCP (`news-api`) | ✅ verified on the protected separate deployment; public-read release pending |
-| x402 / ACP | 📋 legacy roadmap |
-| Web (`apps/web`) | ✅ redesigned homepage, explorer and setup guide in Vercel preview |
+## Project map
 
-**Legacy:** the audited v0.1 service ("OpenBeat") is live at `https://openbeat.vercel.app`. This repo is the v0.2 codebase; see [docs/ROADMAP.md](docs/ROADMAP.md) for the cutover plan.
-
-## Quickstart — local Node dev
-
-```bash
-npm install          # workspaces
-npm run build        # contracts → sdk → apps
-npm test             # contract tests (node --test)
-npm run dev          # API at http://localhost:8787
-npm run dev:web      # landing page at http://localhost:3000
-npm run dev:worker   # dry-run ingestion (set NEWSAPI_API_KEY in .env)
+```text
+apps/web/app/                 Pages: home, resources, connect, docs
+apps/web/components/news/     Shared layout, resource search, copyable code
+apps/web/data/resources.json  Curated resource catalog
+apps/web/public/llms.txt      Discovery index for agents
+scripts/check-community-resources.mjs
+.github/ISSUE_TEMPLATE/       Resource and bug report templates
 ```
 
-Then:
+The website uses Next.js App Router, React, and an original text-only wordmark. The directory filters resources locally. Setup examples contain placeholders; users configure keys in their own tools. The old `/dashboard` URL redirects to the resource library.
 
-```bash
-curl http://localhost:8787/v1/catalog
-curl http://localhost:8787/openapi.json
-```
+### Repository history
 
-## Quickstart — Supabase (the runtime)
+This repository began as a fork of [Pleiades](https://github.com/thepeternemec/pleiades). Experimental backend applications, packages, Supabase functions, and earlier architecture documents remain for provenance and compatibility. They are **not the NewsAPI.ai service and are not used by the current community website**. Their package names retain the Pleiades prefix. See [the archive note](docs/README.md) before using those materials.
 
-```bash
-brew install supabase/tap/supabase deno   # one-time
-supabase init && supabase link --project-ref <ref>
-supabase db push
-supabase secrets set NEWSAPI_API_KEY=<key>
-supabase start                             # local Postgres + Realtime
-supabase functions serve --no-verify-jwt   # api + worker locally
-```
+Vercel serves `apps/web` from the `main` branch. Site contributions should stay in that directory unless they need catalog checks or repository documentation.
 
-Full instructions, cron schedule, and deploy commands: [supabase/README.md](supabase/README.md).
+## Keep the library useful
 
-## Generated code — keep it in sync
+Resource entries include a title, description, category, canonical URL, source attribution, and review date. Prefer first-party sources and original descriptions. Do not label a community project official or call a client integration verified without a reproducible test record.
 
-`supabase/functions/_shared/` is generated from `packages/contracts` + `apps/{api,worker}/src`.
-After editing canonical sources:
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [SECURITY.md](SECURITY.md) for credential and vulnerability handling. Link review dates record source review, not certification of every client installation.
 
-```bash
-npm run sync:supabase          # regenerate
-npm run check:supabase         # CI enforces freshness with this
-```
+## Independence and license
 
-## Contributing
+This is an independent developer-community contribution. It is not an official NewsAPI.ai / Event Registry product. Provider names identify the services being documented; the provider’s logo is not used. NewsAPI.ai terms govern use of its API and content.
 
-Work follows the phases in [docs/ROADMAP.md](docs/ROADMAP.md). Keep the `packages/contracts` schemas as the single source of truth — every surface (REST, WS, bots, ACP memos) reuses them.
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+Code is [MIT licensed](LICENSE). Existing upstream copyright notices are preserved. Linked projects and news content retain their own licenses and terms.

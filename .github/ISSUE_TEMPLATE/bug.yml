@@ -1,0 +1,17 @@
+name: Website or guide problem
+description: Report a broken link, website defect, or unclear instruction.
+title: "Fix: "
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or resource URL
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include reproduction steps. Never include API keys or sensitive data.
+    validations:
+      required: true

@@ -1,3 +1,5 @@
+> **Historical Pleiades prototype document.** This is not the current community website or official NewsAPI.ai documentation. See [the archive note](README.md).
+
 # Pleiades — Vision
 
 **The real-time news terminal.** An AI-powered platform that delivers breaking insights to traders, content creators, AI agents, and media professionals — before stories reach the mainstream.
