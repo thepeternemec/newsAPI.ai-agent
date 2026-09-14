@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { QuickStart } from "../../components/news/quick-start";
 import Link from "next/link";
 import { ArrowUpRight, Plug, Workflow, Braces } from "lucide-react";
 import { Header, Footer } from "../../components/news/shell";
@@ -32,6 +33,7 @@ export default function Connect() {
             this community guide.
           </p>
         </div>
+        <QuickStart />
         <nav className="connection-jumps" aria-label="Setup paths">
           <a href="#mcp">
             <Plug size={18} /> MCP assistants
