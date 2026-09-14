@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useSiteMotion } from "./site-motion";
+import FluidTabs from "../ui/fluid-tabs/fluid-tabs";
 import Link from "next/link";
 import { ArrowUpRight, Braces, Plug, Workflow } from "lucide-react";
 import { CodeBlock } from "./code-block";
@@ -36,29 +38,38 @@ const connections = [
   },
 ];
 export function QuickStart() {
+  const { enabled } = useSiteMotion();
   const [selected, setSelected] = useState("mcp");
   const current = connections.find((connection) => connection.id === selected)!;
   return (
     <div className="quick-start">
+      <FluidTabs
+        disableMotion={!enabled}
+        value={selected}
+        onValueChange={setSelected}
+        ariaLabel="Choose a setup example"
+        className="sona-tabs"
+        hoverClassName="bg-black/5"
+        tabs={connections.map(({ id, name, icon: Icon }) => ({
+          value: id,
+          triggerId: `setup-tab-${id}`,
+          title: (
+            <span className="sona-tab-label">
+              <Icon size={15} />
+              {name}
+            </span>
+          ),
+          ariaControls: "quick-start-content",
+        }))}
+      />
       <div
-        className="quick-start-tabs"
-        role="group"
-        aria-label="Choose a setup example"
+        id="quick-start-content"
+        role="tabpanel"
+        tabIndex={0}
+        aria-labelledby={`setup-tab-${current.id}`}
       >
-        {connections.map(({ id, name, icon: Icon }) => (
-          <button
-            key={id}
-            type="button"
-            aria-pressed={selected === id}
-            onClick={() => setSelected(id)}
-          >
-            <Icon size={16} />
-            {name}
-          </button>
-        ))}
-        <span className="quick-start-source">OFFICIAL TOOLS</span>
+        <CodeBlock key={current.id} code={current.code} label={current.label} />
       </div>
-      <CodeBlock key={current.id} code={current.code} label={current.label} />
       <div className="quick-start-bottom">
         <p>{current.note}</p>
         <Link href={current.href}>

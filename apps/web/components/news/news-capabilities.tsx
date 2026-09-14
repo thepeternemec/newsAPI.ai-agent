@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useSiteMotion } from "./site-motion";
+import FluidTabs from "../ui/fluid-tabs/fluid-tabs";
 import {
   ArrowRight,
   Bell,
@@ -68,30 +70,32 @@ const examples = [
   },
 ];
 export function NewsCapabilities() {
+  const { enabled } = useSiteMotion();
   const [selected, setSelected] = useState("research");
   const [paused, setPaused] = useState(false);
   const example = examples.find((item) => item.id === selected)!;
   return (
     <div className="capabilities-demo" id="see-it-work" data-paused={paused}>
       <div className="demo-toolbar">
-        <div
-          role="group"
-          aria-label="Explore an example workflow"
-          className="demo-tabs"
-        >
-          {examples.map(({ id, label, icon: Icon }) => (
-            <button
-              type="button"
-              key={id}
-              aria-pressed={selected === id}
-              aria-controls="demo-content"
-              onClick={() => setSelected(id)}
-            >
-              <Icon size={16} />
-              {label}
-            </button>
-          ))}
-        </div>
+        <FluidTabs
+          disableMotion={!enabled}
+          value={selected}
+          onValueChange={setSelected}
+          ariaLabel="Explore an example workflow"
+          className="sona-tabs"
+          hoverClassName="bg-black/5"
+          tabs={examples.map(({ id, label, icon: Icon }) => ({
+            value: id,
+            triggerId: `demo-tab-${id}`,
+            title: (
+              <span className="sona-tab-label">
+                <Icon size={15} />
+                {label}
+              </span>
+            ),
+            ariaControls: "demo-content",
+          }))}
+        />
         <button
           className="motion-toggle"
           type="button"
@@ -104,7 +108,14 @@ export function NewsCapabilities() {
           {paused ? <Play size={14} /> : <Pause size={14} />}
         </button>
       </div>
-      <div className="demo-flow" id="demo-content" key={example.id}>
+      <div
+        className="demo-flow"
+        id="demo-content"
+        role="tabpanel"
+        tabIndex={0}
+        aria-labelledby={`demo-tab-${example.id}`}
+        key={example.id}
+      >
         <div className="demo-query">
           <span className="demo-label">
             <Search size={13} />

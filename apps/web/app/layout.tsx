@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "lenis/dist/lenis.css";
+import { SiteMotion } from "../components/news/site-motion";
 export const metadata: Metadata = {
   metadataBase: new URL("https://newsapi-ai-agent.vercel.app"),
   title: {
@@ -26,7 +28,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        {children}
+        <SiteMotion>{children}</SiteMotion>
       </body>
     </html>
   );

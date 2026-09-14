@@ -23,12 +23,16 @@ import type LenisClass from "lenis";
  *
  * Skipped entirely under `prefers-reduced-motion` (Lenis also respects it).
  */
-export default function SmoothScroll() {
+export default function SmoothScroll({
+  enabled = true,
+}: {
+  enabled?: boolean;
+}) {
   useEffect(() => {
     const reduceMotion =
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
+    if (reduceMotion || !enabled) return;
 
     let cancelled = false;
     let lenis: LenisClass | null = null;
@@ -56,7 +60,7 @@ export default function SmoothScroll() {
       cancelled = true;
       lenis?.destroy();
     };
-  }, []);
+  }, [enabled]);
 
   return null;
 }

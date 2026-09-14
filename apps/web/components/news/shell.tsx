@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MotionToggle } from "./site-motion";
 import { ArrowUpRight, GitBranch } from "lucide-react";
 import { REGISTER, REPO } from "../../lib/community";
 export function Brand() {
@@ -96,6 +97,7 @@ export function Footer() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 free newsAPI agent</span>
+        <MotionToggle />
         <a href={`${REPO}/blob/main/LICENSE`}>
           Open source · MIT license <ArrowUpRight size={13} />
         </a>

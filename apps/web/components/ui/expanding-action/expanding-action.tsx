@@ -23,6 +23,7 @@ export interface ExpandingActionItem {
 }
 
 export interface ExpandingActionProps {
+  disableMotion?: boolean;
   /** Short choices revealed when the action expands. */
   items: ExpandingActionItem[];
   /** Content displayed inside the collapsed trigger. */
@@ -67,6 +68,7 @@ const tokenStyle = {
 } as CSSProperties;
 
 export default function ExpandingAction({
+  disableMotion = false,
   items,
   trigger,
   triggerIcon,
@@ -86,8 +88,10 @@ export default function ExpandingAction({
   const shouldReduceMotion = useReducedMotion();
   const isOpen = open ?? internalOpen;
   const previousIsOpen = useRef(isOpen);
+  const surfaceRef = useRef<HTMLDivElement>(null);
   const hasEnabledItem = items.some((item) => !item.disabled);
-  const widthTransition = shouldReduceMotion ? { duration: 0 } : widthSpring;
+  const widthTransition =
+    disableMotion || shouldReduceMotion ? { duration: 0 } : widthSpring;
 
   const setOpen = (nextOpen: boolean) => {
     if (open === undefined) setInternalOpen(nextOpen);
@@ -99,11 +103,21 @@ export default function ExpandingAction({
 
     previousIsOpen.current = isOpen;
     setIsSurfaceAnimating(true);
+    surfaceRef.current
+      ?.querySelector<HTMLButtonElement>("button:not(:disabled)")
+      ?.focus();
   }, [isOpen]);
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig>
       <motion.div
+        ref={surfaceRef}
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && isOpen) {
+            event.preventDefault();
+            setOpen(false);
+          }
+        }}
         initial={false}
         animate={
           contentBounds.width ? { width: contentBounds.width } : undefined
@@ -131,6 +145,7 @@ export default function ExpandingAction({
               type="button"
               disabled={disabled || !hasEnabledItem}
               onClick={() => setOpen(true)}
+              aria-expanded={false}
               className={cn(
                 "relative flex h-12 cursor-pointer items-center gap-2 rounded-full px-5 text-sm font-medium text-(--expanding-action-foreground) active:scale-[0.97] disabled:pointer-events-none disabled:opacity-45",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--expanding-action-ring)",

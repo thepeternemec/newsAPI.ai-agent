@@ -2412,3 +2412,187 @@ summary:focus-visible {
 .capabilities-demo[data-paused="true"] .demo-flow {
   animation: none !important;
 }
+
+/* Sona UI interactions, tuned to the community site's warm palette. */
+:root {
+  --background: #fff;
+  --foreground: var(--ink);
+  --muted-foreground: var(--muted);
+  --border: var(--line);
+  --ring: var(--accent);
+  --tabs-surface: #f3f3f3;
+  --tabs-indicator: #fff;
+  --tabs-indicator-border: #e7e7e7;
+  --radius-lg: 12px;
+}
+html.lenis {
+  scroll-behavior: auto !important;
+}
+.features-hero {
+  isolation: isolate;
+}
+.ambient-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ambient-background > i {
+  position: absolute;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0.45;
+  background: radial-gradient(circle, #ffd1b3, #fff5ec 52%, transparent 70%);
+  top: -180px;
+  left: -220px;
+  animation: ambient-drift 19s ease-in-out infinite alternate;
+}
+.ambient-background > i:nth-child(2) {
+  top: 100px;
+  left: auto;
+  right: -230px;
+  background: radial-gradient(circle, #ffd9c5, #fff6e8 52%, transparent 70%);
+  animation-delay: -9s;
+  animation-duration: 24s;
+}
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ef552409 1px, transparent 1px),
+    linear-gradient(90deg, #ef552409 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(#000, transparent 85%);
+}
+@keyframes ambient-drift {
+  to {
+    transform: translate(150px, 130px) scale(1.18);
+  }
+}
+.hero-stagger {
+  display: inline-block;
+  vertical-align: bottom;
+  letter-spacing: inherit !important;
+}
+.magnetic-cta {
+  display: inline-flex;
+}
+.magnetic-cta .button {
+  width: 100%;
+  box-shadow:
+    0 3px 0 #b63a1630,
+    0 8px 24px #ef55241c;
+}
+.button {
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.button:active {
+  transform: translateY(1px) scale(0.98);
+}
+.sona-tabs {
+  flex-shrink: 1;
+  min-width: 0;
+}
+.sona-tab-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.quick-start > .sona-tabs {
+  margin: 12px;
+}
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s ease var(--reveal-delay, 0ms),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+.motion-reveal.motion-revealed {
+  opacity: 1;
+  transform: none;
+}
+.resource-search {
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+.resource-search:focus-within {
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 4px #ef552412,
+    0 8px 24px #20202005;
+}
+.site-motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 6px 11px;
+  background: #fff;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.site-motion-toggle:hover {
+  border-color: #ccc;
+  color: var(--ink);
+}
+.site-motion-toggle:disabled {
+  cursor: default;
+}
+.connection-action {
+  --accent: #fff0e8;
+}
+[data-motion="off"] *,
+[data-motion="off"] *::before,
+[data-motion="off"] *::after {
+  animation: none !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+[data-motion="off"] .motion-reveal {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 640px) {
+  .magnetic-cta,
+  .magnetic-cta .button {
+    width: 100%;
+  }
+  .demo-toolbar {
+    gap: 6px;
+  }
+  .sona-tab-label {
+    font-size: 11px;
+    gap: 4px;
+  }
+  .sona-tab-label svg {
+    width: 13px;
+  }
+  .ambient-background > i {
+    width: 350px;
+    height: 350px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-background > i {
+    animation: none;
+  }
+  .motion-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

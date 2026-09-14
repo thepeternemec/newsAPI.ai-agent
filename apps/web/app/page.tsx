@@ -1,5 +1,11 @@
 import Link from "next/link";
 import {
+  HeroTitle,
+  HeroBackground,
+  MagneticLink,
+  ConnectionAction,
+} from "../components/news/interactive-elements";
+import {
   ArrowRight,
   ArrowUpRight,
   Braces,
@@ -40,18 +46,14 @@ export default function Home() {
       <Header />
       <main id="main" className="site-frame">
         <section className="dev-hero features-hero">
-          <div className="hero-grid-lines" aria-hidden="true" />
+          <HeroBackground />
           <div className="hero-inner">
             <a className="trial-badge" href="https://newsapi.ai/plans">
               <span className="status-dot" />
               2,000 free searches. Your first idea starts here.
               <ArrowRight size={13} />
             </a>
-            <h1>
-              Give your agents
-              <br />
-              <span>the bigger picture.</span>
-            </h1>
+            <HeroTitle />
             <p className="hero-description">
               Fresh reporting. Connected events. Context that matters.
               <br className="desktop-break" />
@@ -59,10 +61,10 @@ export default function Home() {
               NewsAPI.ai.
             </p>
             <div className="hero-actions">
-              <a className="button" href={REGISTER}>
+              <MagneticLink href={REGISTER}>
                 Start with 2,000 free searches
                 <ArrowUpRight size={16} />
-              </a>
+              </MagneticLink>
               <a className="button button-light" href="#see-it-work">
                 See what’s possible
                 <ArrowRight size={16} />
@@ -272,10 +274,7 @@ export default function Home() {
               <Plug size={18} />
               Build with the official MCP server, n8n workflows, or SDKs.
             </span>
-            <Link href="/connect">
-              Choose your connection
-              <ArrowRight size={15} />
-            </Link>
+            <ConnectionAction />
           </div>
         </section>
         <SectionIndex number="03">YOUR FIRST 2,000 SEARCHES</SectionIndex>

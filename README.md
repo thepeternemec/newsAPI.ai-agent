@@ -74,3 +74,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [SECURI
 This is an independent developer-community contribution. It is not an official NewsAPI.ai / Event Registry product. Provider names identify the services being documented; the provider’s logo is not used. NewsAPI.ai terms govern use of its API and content.
 
 Code is [MIT licensed](LICENSE). Existing upstream copyright notices are preserved. Linked projects and news content retain their own licenses and terms.
+
+### Interface motion
+
+The website activates [Sona UI](https://www.sonaui.com/components) Magnetic Button, Fluid Tabs, Expanding Action, and Stagger Text. Lenis provides smooth scrolling; subtle background motion and scroll reveals support the feature sections. The footer motion control and device reduced-motion preference disable decorative movement. Source component licensing is documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

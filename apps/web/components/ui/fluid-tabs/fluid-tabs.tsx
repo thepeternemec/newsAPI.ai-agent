@@ -22,9 +22,11 @@ export interface FluidTabItem {
   disabled?: boolean;
   /** ID of the external tab panel controlled by this tab. */
   ariaControls?: string;
+  triggerId?: string;
 }
 
 export interface FluidTabsProps {
+  disableMotion?: boolean;
   /** Tabs displayed in the horizontal tab list. */
   tabs: FluidTabItem[];
   /** Controlled active tab value. */
@@ -70,6 +72,7 @@ const tokenStyle = {
 } as CSSProperties;
 
 export default function FluidTabs({
+  disableMotion = false,
   tabs,
   value,
   defaultValue,
@@ -120,6 +123,7 @@ export default function FluidTabs({
           {tabs.map((tab) => (
             <Tabs.Tab
               key={tab.value}
+              id={tab.triggerId}
               value={tab.value}
               disabled={tab.disabled}
               aria-controls={tab.ariaControls}
@@ -167,7 +171,9 @@ export default function FluidTabs({
                         : "bg-[var(--fluid-tabs-surface-active)]"),
                   )}
                   transition={
-                    shouldReduceMotion || keyboardSelectionRef.current
+                    disableMotion ||
+                    shouldReduceMotion ||
+                    keyboardSelectionRef.current
                       ? { duration: 0 }
                       : {
                           type: "spring",
