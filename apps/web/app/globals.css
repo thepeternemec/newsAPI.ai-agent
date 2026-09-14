@@ -2596,3 +2596,89 @@ html.lenis {
     transition: none;
   }
 }
+
+/* Give animated glyphs room for descenders and clip only their rolling copies. */
+.features-hero h1 {
+  line-height: 1.18;
+}
+.hero-stagger {
+  overflow: visible;
+  line-height: 1.3;
+  margin-bottom: -0.08em;
+}
+.hero-stagger > span {
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.button-light {
+  background: #202020;
+  border-color: #202020;
+  color: #fff;
+  box-shadow: 0 3px 8px #00000012;
+}
+.button-light:hover {
+  background: #333;
+  border-color: #333;
+  color: #fff;
+}
+.button-light svg {
+  color: #ff8a55;
+}
+.community-code {
+  background: #161616;
+  border-color: #333;
+  box-shadow: 0 12px 32px #0000000c;
+}
+.code-heading,
+.quick-start .code-heading {
+  background: #232323;
+  color: #c8c8c8;
+  border-bottom: 1px solid #393939;
+  padding-bottom: 11px;
+}
+.code-heading > span::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 9px;
+  background: #ff8147;
+  vertical-align: middle;
+}
+.code-heading button {
+  background: #ff8147;
+  border-color: #ff8147;
+  color: #171717;
+  font-weight: 600;
+}
+.code-heading button:hover {
+  background: #ff9a6c;
+  border-color: #ff9a6c;
+}
+.community-code pre,
+.quick-start .community-code pre {
+  background: #161616;
+  color: #ffb18b;
+}
+.community-code .copy-feedback {
+  color: #c8c8c8;
+}
+.connection-action {
+  background: #202020;
+  --background: #202020;
+  --foreground: #fff;
+  --muted-foreground: #ff9a6c;
+  --border: #393939;
+  --accent: #98441f;
+}
+.resource-filters button[aria-pressed="true"] {
+  background: #202020;
+  color: #fff;
+  border-color: #202020;
+}
+@media (max-width: 480px) {
+  .features-hero h1 {
+    font-size: clamp(32px, 9vw, 42px);
+  }
+}

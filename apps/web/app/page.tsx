@@ -55,10 +55,10 @@ export default function Home() {
             </a>
             <HeroTitle />
             <p className="hero-description">
-              Fresh reporting. Connected events. Context that matters.
+              Turn today’s news into your agent’s next great answer.
               <br className="desktop-break" />
-              Build agents that research, monitor, and stay informed with
-              NewsAPI.ai.
+              Search reporting, follow breaking stories, and build useful
+              briefings with NewsAPI.ai’s MCP server, n8n workflows, and SDKs.
             </p>
             <div className="hero-actions">
               <MagneticLink href={REGISTER}>

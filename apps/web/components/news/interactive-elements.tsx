@@ -8,17 +8,17 @@ import { useSiteMotion } from "./site-motion";
 export function HeroTitle() {
   const { enabled } = useSiteMotion();
   return (
-    <h1>
-      Give your agents
+    <h1 aria-label="Fresh news. Smarter agents.">
+      Fresh news.
       <br />
       {enabled ? (
         <StaggerText
           as="span"
           className="hero-stagger"
-          text="the bigger picture."
+          text="Smarter agents."
         />
       ) : (
-        <span>the bigger picture.</span>
+        <span>Smarter agents.</span>
       )}
     </h1>
   );
